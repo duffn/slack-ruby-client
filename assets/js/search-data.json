@@ -182,96 +182,103 @@
     "relUrl": "/#useful-to-me"
   },"26": {
     "doc": "Home",
+    "title": "History",
+    "content": "This gem is based on slack-ruby-gem, but it more clearly separates the Web and RTM APIs, is more thoroughly tested and is in active development. ",
+    "url": "/slack-ruby-client/#history",
+    
+    "relUrl": "/#history"
+  },"27": {
+    "doc": "Home",
     "title": "Stable Release",
     "content": "You’re reading the documentation for the next release of slack-ruby-client. Please see the documentation for the last stable release, v2.1.0 unless you’re integrating with HEAD. | See all tagged versions of this documentation for docs for a specific relase. | See UPGRADING when upgrading from an older version. | . ",
     "url": "/slack-ruby-client/#stable-release",
     
     "relUrl": "/#stable-release"
-  },"27": {
+  },"28": {
     "doc": "Home",
     "title": "Installation",
     "content": "Add to Gemfile. gem 'slack-ruby-client' . If you’re going to be using the RealTime client, add async-websocket. See the documentation for more information about concurrency. gem 'async-websocket', '~&gt; 0.8.0' . Run bundle install. ",
     "url": "/slack-ruby-client/#installation",
     
     "relUrl": "/#installation"
-  },"28": {
+  },"29": {
     "doc": "Home",
     "title": "Home",
     "content": " ",
     "url": "/slack-ruby-client/",
     
     "relUrl": "/"
-  },"29": {
+  },"30": {
     "doc": "Message Parsing",
     "title": "Message Parsing",
     "content": "All text in Slack uses the same system of escaping: chat messages, direct messages, file comments, etc. Use Slack::Messages::Formatting to unescape incoming messages. This comes handy, for example, you want to treat all input to a real time bot as plain text. Slack::Messages::Formatting.unescape('Hello &amp;amp; &amp;lt;world&amp;gt;')) # =&gt; 'Hello &amp; &lt;world&gt;' Slack::Messages::Formatting.unescape('Hey &lt;@U024BE7LH|bob&gt;, did you see my file?')) # =&gt; 'Hey @bob, did you see my file?' Slack::Messages::Formatting.unescape('Hey &lt;@U02BEFY4U&gt;')) # =&gt; 'Hey @U02BEFY4U' Slack::Messages::Formatting.unescape('This message contains a URL &lt;http://foo.com/&gt;')) # =&gt; 'This message contains a URL http://foo.com/' Slack::Messages::Formatting.unescape('So does this one: &lt;http://www.foo.com|www.foo.com&gt;')) # =&gt; 'So does this one: www.foo.com' Slack::Messages::Formatting.unescape('&lt;mailto:bob@example.com|Bob&gt;')) # =&gt; 'Bob' Slack::Messages::Formatting.unescape('Hello &lt;@U123|bob&gt;, say hi to &lt;!everyone&gt; in &lt;#C1234|general&gt;')) # =&gt; 'Hello @bob, say hi to @everyone in #general' Slack::Messages::Formatting.unescape('Hello &lt;@U123|bob&gt; &amp;gt; file.txt')) # =&gt; 'Hello @bob &gt; file.txt' Slack::Messages::Formatting.unescape('“hello”')) # =&gt; '\"hello\"' Slack::Messages::Formatting.unescape('‘hello’')) # =&gt; \"'hello'\" . ",
     "url": "/slack-ruby-client/usage/message_parsing.html",
     
     "relUrl": "/usage/message_parsing.html"
-  },"30": {
+  },"31": {
     "doc": "Options",
     "title": "Options",
     "content": "You can configure the Web client either globally or via the initializer. Slack::Web::Client.configure do |config| config.user_agent = 'Slack Ruby Client/1.0' end . client = Slack::Web::Client.new(user_agent: 'Slack Ruby Client/1.0') . The following settings are supported. | setting | description | . | token | Slack API token. | . | user_agent | User-agent, defaults to Slack Ruby Client/version. | . | proxy | Optional HTTP proxy. | . | ca_path | Optional SSL certificates path. | . | ca_file | Optional SSL certificates file. | . | endpoint | Slack endpoint, default is https://slack.com/api. | . | logger | Optional Logger instance that logs HTTP requests. | . | timeout | Optional open/read timeout in seconds. | . | open_timeout | Optional connection open timeout in seconds. | . | default_page_size | Optional page size for paginated requests, default is 100. | . | default_max_retries | Optional number of retries for paginated requests, default is 100. | . | adapter | Optional HTTP adapter to use, defaults to Faraday.default_adapter. | . You can also pass request options, including timeout and open_timeout into individual calls. client.conversations_list(request: { timeout: 180 }) . You can also control what proxy options are used by modifying the http_proxy environment variable per Net::HTTP’s documentation. Docker on OSX seems to incorrectly set the proxy, causing Faraday::ConnectionFailed, ERROR -- : Failed to open TCP connection to : (getaddrinfo: Name or service not known). You might need to manually unset http_proxy in that case, eg. http_proxy=\"\" bundle exec ruby ./my_bot.rb. ",
     "url": "/slack-ruby-client/usage/web_client/options.html",
     
     "relUrl": "/usage/web_client/options.html"
-  },"31": {
+  },"32": {
     "doc": "Pagination",
     "title": "Pagination",
     "content": "The Web client natively supports cursor pagination for methods that allow it, such as users_list. Supply a block and the client will make repeated requests adjusting the value of cursor with every response. The default limit is set to 100 and can be adjusted via Slack::Web::Client.config.default_page_size or by passing it directly into the API call. all_members = [] client.users_list(presence: true, limit: 10) do |response| all_members.concat(response.members) end all_members # many thousands of team members retrieved 10 at a time . When using cursor pagination the client will automatically pause and then retry the request if it runs into Slack rate limiting. (It will pause according to the Retry-After header in the 429 response before retrying the request.) If it receives too many rate-limited responses in a row it will give up and raise an error. The default number of retries is 100 and can be adjusted via Slack::Web::Client.config.default_max_retries or by passing it directly into the method as max_retries. You can also proactively avoid rate limiting by adding a pause between every paginated request with the sleep_interval parameter, which is given in seconds. all_members = [] client.users_list(presence: true, limit: 10, sleep_interval: 5, max_retries: 20) do |response| # pauses for 5 seconds between each request # gives up after 20 consecutive rate-limited responses all_members.concat(response.members) end all_members # many thousands of team members retrieved 10 at a time . ",
     "url": "/slack-ruby-client/usage/web_client/pagination.html",
     
     "relUrl": "/usage/web_client/pagination.html"
-  },"32": {
+  },"33": {
     "doc": "RealTime Client",
     "title": "RealTime Client",
     "content": "The Real Time Messaging API is a WebSocket-based API that allows you to receive events from Slack in real time and send messages as user. client = Slack::RealTime::Client.new client.on :hello do puts \"Successfully connected, welcome '#{client.self.name}' to the '#{client.team.name}' team at https://#{client.team.domain}.slack.com.\" end client.on :message do |data| case data.text when 'bot hi' then client.message(channel: data.channel, text: \"Hi &lt;@#{data.user}&gt;!\") when /^bot/ then client.message(channel: data.channel, text: \"Sorry &lt;@#{data.user}&gt;, what?\") end end client.on :close do |_data| puts \"Client is about to disconnect\" end client.on :closed do |_data| puts \"Client has disconnected successfully!\" end client.start! . You can send typing indicators with typing. client.typing channel: data.channel . You can send a ping with ping. client.ping . ",
     "url": "/slack-ruby-client/usage/realtime_client/realtime_client.html",
     
     "relUrl": "/usage/realtime_client/realtime_client.html"
-  },"33": {
+  },"34": {
     "doc": "Store",
     "title": "Store",
     "content": "The RealTime client exposes and maintains a local store upon successful connection. Event hooks keep the store’s cached data up-to-date. Tracking with a local store can be disabled with Slack::RealTime::Client.new(store_class: nil). ",
     "url": "/slack-ruby-client/usage/realtime_client/store.html",
     
     "relUrl": "/usage/realtime_client/store.html"
-  },"34": {
+  },"35": {
     "doc": "Store",
     "title": "Slack::RealTime::Stores::Starter",
     "content": "A small store that only caches and tracks data returned in the rtm.connect response. This store provides self and team for accessing the limited data about the authenticated user and its workspace, but does not cache other users or bots, channels, or direct messages. ",
     "url": "/slack-ruby-client/usage/realtime_client/store.html#slackrealtimestoresstarter",
     
     "relUrl": "/usage/realtime_client/store.html#slackrealtimestoresstarter"
-  },"35": {
+  },"36": {
     "doc": "Store",
     "title": "Slack::RealTime::Stores::Store",
     "content": "A more complete store that tracks most changes visible to the authenticated user. You can see all of the cache types in the table below (each is a hash indexed by its objects’ id). | Cache | Description | . | teams | Workspaces (teams). Will likely contain only one team. | . | users | All user objects, including self. | . | bots | All bot users (from Slack Apps and legacy custom integrations). | . | public_channels | Public conversation objects. | . | private_channels | Private conversation and group objects with the authenticated user as a member. | . | ims | Visible im objects, direct message channels with the authenticated user. | . | mpims | Visible mpim objects, multiparty direct message channels that include the authenticated user. | . By default, none of these caches are initialized with data beyond what is returned from rtm.connect, same as Slack::RealTime::Stores::Starter. When configured, this store initializes its caches by making additional calls to Web API methods upon successful connection to the RTM API (i.e. “hello” message). Configure by specifying which caches to fetch: . Slack::RealTime::Client.configure do |config| config.store_class = Slack::RealTime::Stores::Store config.store_options = { caches: %i[teams users public_channels private_channels ims] } end . or with the :all option: . Slack::RealTime::Client.configure do |config| config.store_class = Slack::RealTime::Stores::Store config.store_options = { caches: :all } end . For teams, this makes a single call to team.info, while for users and all conversation-like types, this makes paginated calls to users.list and conversations.list respectively. Only bots requires a separate call for every bot user, so may be slow if your workplace has a lot of bot users. ",
     "url": "/slack-ruby-client/usage/realtime_client/store.html#slackrealtimestoresstore",
     
     "relUrl": "/usage/realtime_client/store.html#slackrealtimestoresstore"
-  },"36": {
+  },"37": {
     "doc": "Usage",
     "title": "Usage",
     "content": " ",
     "url": "/slack-ruby-client/usage/usage.html",
     
     "relUrl": "/usage/usage.html"
-  },"37": {
+  },"38": {
     "doc": "Verifying the Request Signature",
     "title": "Verifying the Request Signature",
     "content": "Slack signs its requests using a secret that’s unique to your app. Verify incoming HTTP requests as follows. slack_request = Slack::Events::Request.new(http_request) slack_request.verify! . To specify secrets on a per-request basis: . Slack::Events::Request.new(http_request, signing_secret: signing_secret, signature_expires_in: signature_expires_in) . The verify! call may raise Slack::Events::Request::MissingSigningSecret, Slack::Events::Request::InvalidSignature or Slack::Events::Request::TimestampExpired errors. ",
     "url": "/slack-ruby-client/usage/events/verifying_the_request_signature.html",
     
     "relUrl": "/usage/events/verifying_the_request_signature.html"
-  },"38": {
+  },"39": {
     "doc": "Versions",
     "title": "Versions",
     "content": "These are the different versions of the documentation for slack-ruby-client. | head | v2.1.0 | . ",
     "url": "/slack-ruby-client/versions.html",
     
     "relUrl": "/versions.html"
-  },"39": {
+  },"40": {
     "doc": "Web Client",
     "title": "Web Client",
     "content": "The Slack Web API allows you to build applications that interact with Slack. ",
