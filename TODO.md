@@ -1,0 +1,4 @@
+- [ ] Confirm URLs are correct
+- [ ] GitHub Action should run on master and tags
+- [x] Check notes
+- [ ] Push up a 2.1.0 version
