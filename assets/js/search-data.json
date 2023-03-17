@@ -190,7 +190,7 @@
   },"27": {
     "doc": "Home",
     "title": "Installation",
-    "content": "Add to Gemfile. gem 'slack-ruby-client' . If you’re going to be using the RealTime client, add async-websocket. See below for more information about concurrency. gem 'async-websocket', '~&gt; 0.8.0' . Run bundle install. ",
+    "content": "Add to Gemfile. gem 'slack-ruby-client' . If you’re going to be using the RealTime client, add async-websocket. See the documentation for more information about concurrency. gem 'async-websocket', '~&gt; 0.8.0' . Run bundle install. ",
     "url": "/slack-ruby-client/#installation",
     
     "relUrl": "/#installation"
