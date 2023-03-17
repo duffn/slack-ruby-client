@@ -176,7 +176,7 @@
   },"25": {
     "doc": "Examples",
     "title": "Send Messages",
-    "content": "Send messages with chat_PostMessage. client.chat_postMessage(channel: '#general', text: 'Hello World', as_user: true) . See a fully working example in examples/hi_web. ",
+    "content": "Send messages with chat_PostMessage. client.chat_postMessage(channel: '#general', text: 'Hello World', as_user: true) . See a fully working example in https://github.com/slack-ruby/slack-ruby-client/tree/master/examples/hi_web. ",
     "url": "/slack-ruby-client/usage/web_client/examples.html#send-messages",
     
     "relUrl": "/usage/web_client/examples.html#send-messages"
