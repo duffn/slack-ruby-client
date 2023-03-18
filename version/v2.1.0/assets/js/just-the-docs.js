@@ -53,7 +53,7 @@ function initNav() {
 
 function initSearch() {
   var request = new XMLHttpRequest();
-  request.open('GET', '/version/v2.1.0/assets/js/search-data.json', true);
+  request.open('GET', '/slack-ruby-client/version/v2.1.0/assets/js/search-data.json', true);
 
   request.onload = function(){
     if (request.status >= 200 && request.status < 400) {
@@ -432,7 +432,7 @@ jtd.getTheme = function() {
 
 jtd.setTheme = function(theme) {
   var cssFile = document.querySelector('[rel="stylesheet"]');
-  cssFile.setAttribute('href', '/version/v2.1.0/assets/css/just-the-docs-' + theme + '.css');
+  cssFile.setAttribute('href', '/slack-ruby-client/version/v2.1.0/assets/css/just-the-docs-' + theme + '.css');
 }
 
 // Scroll site-nav to ensure the link to the current page is visible
