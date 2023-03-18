@@ -120,7 +120,7 @@
   },"17": {
     "doc": "Enterprise Support",
     "title": "Enterprise Support",
-    "content": "Available as part of the Tidelift Subscription. The maintainers of slack-ruby-client are working with Tidelift to deliver commercial support and maintenance. Save time, reduce risk, and improve code health, while paying the maintainers of slack-ruby-client. Click here for more details. ",
+    "content": "Available as part of the Tidelift Subscription. The maintainers of slack-ruby-client are working with Tidelift to deliver commercial support and maintenance. Save time, reduce risk, and improve code health, while paying the maintainers of slack-ruby-client. Click here for more details. Config . ",
     "url": "/slack-ruby-client/enterprise_support.html",
     
     "relUrl": "/enterprise_support.html"
@@ -246,7 +246,7 @@
   },"35": {
     "doc": "Home",
     "title": "Stable Release",
-    "content": "You’re reading the documentation for the next release of slack-ruby-client. Please see the documentation for the last stable release, v2.1.0 unless you’re integrating with HEAD. | See all tagged versions of this documentation for docs for a specific relase. | See UPGRADING when upgrading from an older version. | . ",
+    "content": "You’re reading the documentation for the next release of slack-ruby-client. Please see the documentation for the last stable release, v2.1.0 unless you’re integrating with HEAD. | See all tagged versions of this documentation for docs for a specific relase. | See upgrading when upgrading from an older version. | . ",
     "url": "/slack-ruby-client/#stable-release",
     
     "relUrl": "/#stable-release"
@@ -314,27 +314,104 @@
     
     "relUrl": "/usage/realtime_client/store.html#slackrealtimestoresstore"
   },"45": {
+    "doc": "Upgrading",
+    "title": "Upgrading",
+    "content": " ",
+    "url": "/slack-ruby-client/upgrading.html",
+    
+    "relUrl": "/upgrading.html"
+  },"46": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 2.0.0",
+    "content": "#416 Removes default values for Faraday’s SSL settings ca_file and ca_path. If you previously relied on OpenSSL::X509::DEFAULT_CERT_FILE or OpenSSL::X509::DEFAULT_CERT_DIR to set these values you must now do so explicitly. E.g.: . Slack::Web::Client.configure do |config| config.ca_file = OpenSSL::X509::DEFAULT_CERT_FILE config.ca_path = OpenSSL::X509::DEFAULT_CERT_DIR end . or . client = Slack::Web::Client.new(ca_file: OpenSSL::X509::DEFAULT_CERT_FILE, ca_path: OpenSSL::X509::DEFAULT_CERT_DIR) . RealTime Stores . Slack has deprecated the rtm.start method and replaced its response with that of rtm.connect, so it has been removed from the library along with the start_method configuration (#419) and Slack::RealTime::Stores::Starter is now the default store. If your app still relies on the old rtm.start behavior, you can achieve a similar result with Slack::RealTime::Stores::Store, which initializes itself using Web API methods (see README). The names of the Store caches channels and groups have been changed to public_channels and private_channels to reflect their true meaning. This is consistent with the Slack Web API, although event types for private channels still use the term group. In both cases, private channels consist of both conversation types (id: 'C...'', is_channel: true, is_group: false, is_private: true) and group types (id: 'G...', is_channel: false, is_group: true, is_private: true) depending whether the object was created before or after March 2021. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--200",
+    
+    "relUrl": "/upgrading.html#upgrading-to--200"
+  },"47": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 1.0.0",
+    "content": "Deprecated Methods . Slack has deprecated all channel and group methods, which have been removed from the library. See this announcement from Slack for details. Error Handling . As of 1.0.0 Slack::Web::Api::Errors::ServerError and its subclasses (introduced in 0.16.0) no longer extend Slack::Web::Api::Errors::InternalError or its parent Slack::Web::Api::Errors::SlackError. If you are rescuing SlackError or InternalError with the intention of including ServerError and its subclasses you should adjust your code to explicitly rescue Slack::Web::Api::Errors::ServerError. # Before begin client.auth_test rescue Slack::Web::Api::Errors::SlackError # Includes all server errors end # After begin client.auth_test rescue Slack::Web::Api::Errors::SlackError, Slack::Web::Api::Errors::ServerError # Need to rescue the server errors separately from SlackError end . Additionally the initialize method for ParsingError, TimeoutError, and UnavailableError have changed from new(message, response) to new(response). The message is now built into the definition of these classes. If you are instantiating or raising these errors in your code (perhaps in tests) you will need to update your code. # Before error = Slack::Web::Api::Errors::TimeoutError.new('timeout_error', response) error.message # =&gt; 'timeout_error' # After error = Slack::Web::Api::Errors::TimeoutError.new(response) error.message # =&gt; 'timeout_error' . ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--100",
+    
+    "relUrl": "/upgrading.html#upgrading-to--100"
+  },"48": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.16.0",
+    "content": "Removed Celluloid and Faye-Websocket Concurrency Support . Concurrency support for celluloid-io and faye-websocket has been removed. If you are running a RealTime bot on Celluloid or Faye, you must upgrade to async-websocket. Please note that RealTime bots are deprecated by Slack, and we generally recommend you migrate your classic, RealTime bot, to granular permissions. See #338 for more information. Error Handling . As of 0.16.0 Faraday::Error exceptions sans Faraday::ClientError are wrapped into Slack::Web::Api::Errors::ServerError, so if you’re rescuing Faraday::Error — you should adjust your code to use Slack::Web::Api::Errors::ServerError and use exception.cause if underlying Faraday::Error is needed. See README#other-errors and #350 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--0160",
+    
+    "relUrl": "/upgrading.html#upgrading-to--0160"
+  },"49": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.15.0",
+    "content": "As of 0.15.0, activesupport is no longer required. Add gem 'activesupport' to your Gemfile if you required ActiveSupport via this library. See #325 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--0150",
+    
+    "relUrl": "/upgrading.html#upgrading-to--0150"
+  },"50": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.14.0",
+    "content": "If you are using async-websocket, lock down its version to 0.8.0 as newer versions are currently incompatible. gem 'async-websocket', '~&gt; 0.8.0' . See #282 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--0140",
+    
+    "relUrl": "/upgrading.html#upgrading-to--0140"
+  },"51": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.13.0",
+    "content": "Recommended Async Library . The RealTime client now supports async-websocket, which is actively maintained and is now the recommended library. See #219 for implementation details. Async Library Threading and Reactor Changes . The RealTime celluloid-io implementation now uses a Thread per client. Previous versions used an Actor. The faye-websocket implementation with EventMachine will attempt to shutdown EventMachine via EventMachine.stop upon shutdown if a reactor wasn’t already running. See #224 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--0130",
+    
+    "relUrl": "/upgrading.html#upgrading-to--0130"
+  },"52": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.9.0",
+    "content": "Changes in How the RTM Client Connects . The RealTime client now automatically chooses either rtm.start or rtm.connect to open a connection. The rtm.connect method is a newer, preferred method, which serves connection purposes and returns some basic team info. The rtm.start method additionally returns a lot of data about the team, its channels, and members, and is required to use the full Slack::RealTime::Stores::Store storage class. Prior versions always used rtm.start, to restore this behavior, configure start_method. Slack::RealTime::Client.config do |config| config.start_method = :rtm_start end . See #145 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--090",
+    
+    "relUrl": "/upgrading.html#upgrading-to--090"
+  },"53": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.8.0",
+    "content": "The default timeout for rtm.start has been increased from 60 to 180 seconds via Slack::RealTime::Client.config.start_options[:request][:timeout]. If you’re explicitly setting start_options in your application, preserve the value by merging settings instead of replacing the entire start_options value. Before: . Slack::RealTime::Client.config do |config| config.start_options = { no_unreads: true } end . After: . Slack::RealTime::Client.config do |config| config.start_options[:no_unreads] = true # keeps config.start_options[:request] intact end . See #136 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--080",
+    
+    "relUrl": "/upgrading.html#upgrading-to--080"
+  },"54": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.6.0",
+    "content": "Changes to API Response Data . API responses in both Web and RealTime clients are now instances of Slack::Messages::Message, which provides method access to properties. Before: . puts \"Welcome '#{client.self['name']}' to the '#{client.team['name']}' team.\" . After: . puts \"Welcome #{client.self.name} to the #{client.team.name} team.\" . See #56 for more information. Changes to RealTime Local Store . Upon a successful rtm.start the RealTime client keeps a local cache of objects, including self or users. It will now also track changes to these objects. The following changes have been made to the data structures. client.self . The client.self object is now a Slack::RealTime::Models::User, which is a child of Hashie::Mash, so no code changes should be required. client.team . The client.team object is now a Slack::RealTime::Models::Team, which is a child of Hashie::Mash, so no code changes should be required. client .users, .channels, .groups, .ims . The client.users, .channels, .groups and .ims collections have been changed from Array to Hash, with object ID as key. Replace any code iterating over the array, eg. client.users.values.each or client.channels.each_pair { |id, channel| ... }. See #55 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--060",
+    
+    "relUrl": "/upgrading.html#upgrading-to--060"
+  },"55": {
+    "doc": "Upgrading",
+    "title": "Upgrading to &gt;= 0.5.0",
+    "content": "Changes to Real Time Concurrency . Since 0.5.0 Slack::RealTime::Client supports Celluloid and no longer defaults to Faye::WebSocket with Eventmachine. It will auto-detect one or the other depending on the gems in your Gemfile, which means you may need to add one or the other to your Gemfile. Faye::WebSocket with Eventmachine . gem 'faye-websocket' . Celluloid . gem 'celluloid-io' . When in doubt, use faye-websocket. See #5 for more information. ",
+    "url": "/slack-ruby-client/upgrading.html#upgrading-to--050",
+    
+    "relUrl": "/upgrading.html#upgrading-to--050"
+  },"56": {
     "doc": "Usage",
     "title": "Usage",
     "content": " ",
     "url": "/slack-ruby-client/usage/usage.html",
     
     "relUrl": "/usage/usage.html"
-  },"46": {
+  },"57": {
     "doc": "Verifying the Request Signature",
     "title": "Verifying the Request Signature",
     "content": "Slack signs its requests using a secret that’s unique to your app. Verify incoming HTTP requests as follows. slack_request = Slack::Events::Request.new(http_request) slack_request.verify! . To specify secrets on a per-request basis: . Slack::Events::Request.new(http_request, signing_secret: signing_secret, signature_expires_in: signature_expires_in) . The verify! call may raise Slack::Events::Request::MissingSigningSecret, Slack::Events::Request::InvalidSignature or Slack::Events::Request::TimestampExpired errors. ",
     "url": "/slack-ruby-client/usage/events/verifying_the_request_signature.html",
     
     "relUrl": "/usage/events/verifying_the_request_signature.html"
-  },"47": {
+  },"58": {
     "doc": "Versions",
     "title": "Versions",
     "content": "These are the different versions of the documentation for slack-ruby-client. | head | v2.1.0 | . ",
     "url": "/slack-ruby-client/versions.html",
     
     "relUrl": "/versions.html"
-  },"48": {
+  },"59": {
     "doc": "Web Client",
     "title": "Web Client",
     "content": "The Slack Web API allows you to build applications that interact with Slack. ",
