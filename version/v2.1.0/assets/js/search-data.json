@@ -246,7 +246,7 @@
   },"35": {
     "doc": "Home",
     "title": "Stable Release",
-    "content": "You’re reading the documentation for the next release of slack-ruby-client. Please see the documentation for the last stable release, v2.1.0 unless you’re integrating with HEAD. | See versions for docs for a specific relase. | See upgrading when upgrading from an older version. | . ",
+    "content": "You’re reading the documentation for the v2.1.0 release of slack-ruby-client. | See versions for docs for a specific relase. | See upgrading when upgrading from an older version. | . ",
     "url": "/slack-ruby-client/version/v2.1.0/#stable-release",
     
     "relUrl": "/#stable-release"
