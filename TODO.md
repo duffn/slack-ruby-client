@@ -1,3 +1,2 @@
 - [ ] GitHub Action should run on master and tags
 - [ ] Push up a 2.1.0 version
-- [ ] Check links

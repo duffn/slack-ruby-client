@@ -120,7 +120,7 @@
   },"17": {
     "doc": "Enterprise Support",
     "title": "Enterprise Support",
-    "content": "Available as part of the Tidelift Subscription. The maintainers of slack-ruby-client are working with Tidelift to deliver commercial support and maintenance. Save time, reduce risk, and improve code health, while paying the maintainers of slack-ruby-client. Click here for more details. Config . ",
+    "content": "Available as part of the Tidelift Subscription. The maintainers of slack-ruby-client are working with Tidelift to deliver commercial support and maintenance. Save time, reduce risk, and improve code health, while paying the maintainers of slack-ruby-client. Click here for more details. ",
     "url": "/slack-ruby-client/enterprise_support.html",
     
     "relUrl": "/enterprise_support.html"
@@ -246,7 +246,7 @@
   },"35": {
     "doc": "Home",
     "title": "Stable Release",
-    "content": "You’re reading the documentation for the next release of slack-ruby-client. Please see the documentation for the last stable release, v2.1.0 unless you’re integrating with HEAD. | See all tagged versions of this documentation for docs for a specific relase. | See upgrading when upgrading from an older version. | . ",
+    "content": "You’re reading the documentation for the next release of slack-ruby-client. Please see the documentation for the last stable release, v2.1.0 unless you’re integrating with HEAD. | See versions for docs for a specific relase. | See upgrading when upgrading from an older version. | . ",
     "url": "/slack-ruby-client/#stable-release",
     
     "relUrl": "/#stable-release"
